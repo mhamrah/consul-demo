@@ -36,7 +36,7 @@ A little taste of [Consul](consul.io) for configuration management.
 
 ## Explore This Repo
 
-* A Vagrantfile, ubuntu 14.04 with a shell provisioner for installing consul and friends
+* An Ubuntu 14.04 Vagrantfile, with a shell provisioner for installing consul and friends
 * start-consul-standalone, a helper script to start a standalone server (no clustering required)
 * envconsul sample scripts, including a simple python web app
 * consul-template sample scripts for an haproxy config file, with health checks
