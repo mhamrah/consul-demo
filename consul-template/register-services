@@ -1,0 +1,39 @@
+#!/bin/bash
+
+CONSUL_HOST='192.168.42.13:8500'
+
+curl -d '{
+    "ID": "app1",
+     "Name": "web",
+     "Tags": [ "web", "prod"],
+     "Address": "127.0.0.1",
+     "Port": 8081,
+     "Check": {
+        "HTTP": "http://127.0.0.1:8081",
+        "Interval": "2s"
+      }
+}' -X PUT http://$CONSUL_HOST/v1/agent/service/register
+
+curl -d '{
+    "ID": "app2",
+     "Name": "web",
+     "Tags": [ "web", "prod"],
+     "Address": "127.0.0.1",
+     "Port": 8082,
+     "Check": {
+        "HTTP": "http://127.0.0.1:8082",
+        "Interval": "2s"
+      }
+}' -X PUT http://$CONSUL_HOST/v1/agent/service/register
+
+curl -d '{
+    "ID": "woot1",
+     "Name": "woot",
+     "Tags": [ "woot", "web"],
+     "Address": "127.0.0.1",
+     "Port": 8083
+}' -X PUT http://$CONSUL_HOST/v1/agent/service/register
+
+python simple-web.py 8081 > /dev/null &
+python simple-web.py 8082 > /dev/null &
+python simple-web.py 8083 > /dev/null &

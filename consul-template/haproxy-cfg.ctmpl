@@ -1,0 +1,25 @@
+global
+  maxconn {{key "haproxy/maxconn"}}
+
+defaults
+  mode            http
+  retries         {{key "haproxy/retries"}}
+  timeout connect 5000ms
+  timeout client  50000ms
+  timeout server  50000ms
+  option httpclose
+  balance leastconn
+
+frontend http-in
+  bind *:80
+  mode http
+  option forwardfor
+  option http-server-close{{range services}}
+  acl host_{{.Name}} hdr_beg(host) -i {{.Name}}
+  use_backend {{.Name}}_cluster if host_{{.Name}}{{end}}
+
+{{range services}}
+backend {{.Name}}_cluster{{range service .Name }}
+  server {{.Node}} {{.Address}}:{{.Port}} check{{end}}
+{{end}}
+

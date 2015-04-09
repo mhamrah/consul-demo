@@ -1,0 +1,3 @@
+#!/bin/bash
+
+consul-template -config ct-config.hcl -dry -once

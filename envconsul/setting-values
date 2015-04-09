@@ -1,0 +1,36 @@
+#!/bin/bash
+
+CONSUL_HOST=192.168.42.13:8500
+
+echo ""
+echo "setting redis_host"
+
+curl -X PUT -i -d 'my-redis-host.redis-saas-provider.com' http://$CONSUL_HOST/v1/kv/test/redis_host
+
+echo ""
+echo ""
+
+echo "setting db_host"
+
+curl -X PUT -i -d 'my-db-host.db-saas-provider.com' http://$CONSUL_HOST/v1/kv/test/db_host
+
+echo ""
+echo ""
+
+echo "getting db_host"
+
+curl -sL http://$CONSUL_HOST/v1/kv/test/db_host?raw
+
+echo ""
+echo ""
+
+echo "getting a value as an ENV variable is easy, too!"
+
+/bin/bash -c "DB_HOST=`curl -sL http://$CONSUL_HOST/v1/kv/test/db_host?raw`; echo \"db_host is \$DB_HOST\""
+
+echo ""
+echo ""
+echo "setting some values for haproxy"
+curl -s -i -X PUT -d '6' http://$CONSUL_HOST/v1/kv/haproxy/retries
+echo ""
+curl -s -i -X PUT -d '8192' http://$CONSUL_HOST/v1/kv/haproxy/maxconn 

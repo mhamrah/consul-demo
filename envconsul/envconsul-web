@@ -1,0 +1,3 @@
+#!/bin/bash
+
+envconsul -prefix test -config envconsul-config.hcl python env.py
