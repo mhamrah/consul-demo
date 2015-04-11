@@ -7,11 +7,12 @@ A little taste of [Consul](consul.io) for configuration management.
 * You need help managing configuration settings
 * You want different settings across your environments
 * You need to change your configuration as your environment changes
-* Checking env-specific values in with your app code hasn't worked for you
+* You don't want to manage env-specific values with your source code
 
 ## What
 
-* Service Discovery and configuration made easy.
+* [Consul](consul.io): Service Discovery and configuration made easy.
+* Key/Value Store, Service Registry, Change Notification, DNS Service
 * You can use without going "all-in".
 * No docker required (but docker friendly).
 
@@ -26,7 +27,7 @@ A little taste of [Consul](consul.io) for configuration management.
 
 * [consul-template](https://github.com/hashicorp/consul-template) lets you write config files (similar to confd)
 * Monitors consul, writes new file
-* Optionally will trigger a command
+* Optionally will trigger a command, like reloading HAProxy
 
 ## Docker Friendly
 
