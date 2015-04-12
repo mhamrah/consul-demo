@@ -5,6 +5,7 @@
 VAGRANTFILE_API_VERSION = "2"
 
 $script = <<SCRIPT
+  apt-get update
   apt-get install -y unzip python-pip haproxy
   pip install web.py
   mkdir -p /var/consul
@@ -20,8 +21,8 @@ $script = <<SCRIPT
 
   rm -rf /tmp/*
 
-  echo '127.0.0.1 web.foobar.com\n' >> /etc/hosts
-  echo '127.0.0.1 woot.foobar.com\n' >> /etc/hosts
+  echo '127.0.0.1 www.foobar.com\n' >> /etc/hosts
+  echo '127.0.0.1 admin.foobar.com\n' >> /etc/hosts
 SCRIPT
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|

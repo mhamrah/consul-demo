@@ -2,10 +2,14 @@
 
 CONSUL_HOST='192.168.42.13:8500'
 
+python simple-web.py 8081 > /dev/null &
+python simple-web.py 8082 > /dev/null &
+python simple-web.py 8083 > /dev/null &
+
 curl -d '{
-    "ID": "app1",
-     "Name": "web",
-     "Tags": [ "web", "prod"],
+    "ID": "app-instance-1",
+     "Name": "www",
+     "Tags": [ "website", "prod"],
      "Address": "127.0.0.1",
      "Port": 8081,
      "Check": {
@@ -15,9 +19,9 @@ curl -d '{
 }' -X PUT http://$CONSUL_HOST/v1/agent/service/register
 
 curl -d '{
-    "ID": "app2",
-     "Name": "web",
-     "Tags": [ "web", "prod"],
+    "ID": "app-instance-2",
+     "Name": "www",
+     "Tags": [ "website", "prod"],
      "Address": "127.0.0.1",
      "Port": 8082,
      "Check": {
@@ -27,13 +31,15 @@ curl -d '{
 }' -X PUT http://$CONSUL_HOST/v1/agent/service/register
 
 curl -d '{
-    "ID": "woot1",
-     "Name": "woot",
-     "Tags": [ "woot", "web"],
+    "ID": "admin-1",
+     "Name": "admin",
+     "Tags": [ "admin", "prod"],
      "Address": "127.0.0.1",
-     "Port": 8083
+     "Port": 8083,
+     "Check": {
+        "HTTP": "http://127.0.0.1:8083",
+        "Interval": "2s"
+      }
 }' -X PUT http://$CONSUL_HOST/v1/agent/service/register
 
-python simple-web.py 8081 > /dev/null &
-python simple-web.py 8082 > /dev/null &
-python simple-web.py 8083 > /dev/null &
+./haproxy-consul-template

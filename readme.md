@@ -18,8 +18,8 @@ A little taste of [Consul](consul.io) for configuration management.
 
 ## How? - Basic Config
 
-* [Use environment variables!](http://12factor.net/config)
-* Offers key/value store
+* Use environment variables! [Read about them via the 12-factor app](http://12factor.net/config)
+* Consul offers key/value store
 * Use [envconsul](https://github.com/hashicorp/envconsul) to set env vars for a process 
 * Monitors consul, refreshes process
 
@@ -34,6 +34,7 @@ A little taste of [Consul](consul.io) for configuration management.
 * [Registrator](https://github.com/gliderlabs/registrator) automatically scans the docker 
   daemon and registered services (also works with etcd)
 * [Progrium/docker-consul](https://github.com/progrium/docker-consul) packages consul in a container, with ui.
+* Provides a backend for [Swarm Discovery](https://docs.docker.com/swarm/discovery/) (along with etcd/zookeeper).
 
 ## Explore This Repo
 
