@@ -2,12 +2,15 @@
 
 CONSUL_HOST='192.168.42.13:8500'
 
+#web
 python simple-web.py 8081 > /dev/null &
 python simple-web.py 8082 > /dev/null &
+
+#admin
 python simple-web.py 8083 > /dev/null &
 
 curl -d '{
-    "ID": "app-instance-1",
+    "ID": "www-1",
      "Name": "www",
      "Tags": [ "website", "prod"],
      "Address": "127.0.0.1",
@@ -19,7 +22,7 @@ curl -d '{
 }' -X PUT http://$CONSUL_HOST/v1/agent/service/register
 
 curl -d '{
-    "ID": "app-instance-2",
+    "ID": "www-2",
      "Name": "www",
      "Tags": [ "website", "prod"],
      "Address": "127.0.0.1",
